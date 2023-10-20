@@ -4,7 +4,7 @@ apiVersion: v1
 name: "opensource/metallb/controller"
 
 tags:
-- "v0.13.11"
+- "v0.13.12"
 - "latest"
 
 args:
@@ -17,7 +17,7 @@ labels:
   org.opencontainers.image.licenses: "Apache-2.0"
   org.opencontainers.image.url: "https://github.com/metallb/metallb"
   org.opencontainers.image.vendor: "metallb"
-  org.opencontainers.image.version: "v0.13.11"
+  org.opencontainers.image.version: "v0.13.12"
   mil.dso.ironbank.image.keywords: "metallb,controller"
   mil.dso.ironbank.image.type: "opensource"
   mil.dso.ironbank.product.name: "MetalLB"

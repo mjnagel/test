@@ -1,0 +1,32 @@
+{
+  "assignees": [
+    "@mjnagel"
+  ],
+  "baseBranches": ["main"],
+  "packageRules": [
+    {
+      "datasources": ["docker"],
+      "packageNames": ["quay.io/metallb/controller"],
+      "separateMinorPatch": true,
+      "major": {
+        "enabled": false
+      },
+      "minor": {
+        "enabled": false
+      }
+    }
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "^hardening_manifest.yaml$"
+      ],
+      "matchStrings": [
+        "org\\.opencontainers\\.image\\.version:\\s+(\\s|\"|')?(?<currentValue>.+?)(\\s|\"|'|$)",
+        "tags:\\s+-(\\s|\"|')+(?<currentValue>.+?)(\\s|\"|'|$)+"
+      ],
+      "depNameTemplate": "quay.io/metallb/controller",
+      "datasourceTemplate": "docker"
+    }
+  ]
+}

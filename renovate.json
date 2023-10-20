@@ -7,13 +7,7 @@
     {
       "datasources": ["docker"],
       "packageNames": ["quay.io/metallb/controller"],
-      "separateMinorPatch": true,
-      "major": {
-        "enabled": false
-      },
-      "minor": {
-        "enabled": false
-      }
+      "separateMinorPatch": true
     }
   ],
   "regexManagers": [
@@ -24,6 +18,16 @@
       "matchStrings": [
         "org\\.opencontainers\\.image\\.version:\\s+(\\s|\"|')?(?<currentValue>.+?)(\\s|\"|'|$)",
         "tags:\\s+-(\\s|\"|')+(?<currentValue>.+?)(\\s|\"|'|$)+"
+      ],
+      "depNameTemplate": "quay.io/metallb/controller",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
+      "matchStrings": [
+        "quay\\.io/metallb/controller:(?<currentValue>.+?)"
       ],
       "depNameTemplate": "quay.io/metallb/controller",
       "datasourceTemplate": "docker"

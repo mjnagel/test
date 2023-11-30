@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.8](https://github.com/mjnagel/test/compare/v0.0.7...v0.0.8) (2023-11-30)
+
+
+### Miscellaneous
+
+* rook-ceph renovate test ([188a8c7](https://github.com/mjnagel/test/commit/188a8c7f4dd297f02cd1528319ec684d2687bcd5))
+
 ## [0.0.7](https://github.com/defenseunicorns/uds-capability-rook-ceph/compare/v0.0.6...v0.0.7) (2023-11-03)
 
 

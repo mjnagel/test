@@ -35,14 +35,14 @@
   ],
   "regexManagers": [
     {
-      "fileMatch": ["**/\\.*\\.ya?ml$"],
+      "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": [
         "# renovate: datasource=docker( versioning=(?<versioning>.*?))?\n\\s*-\\s+(?<depName>[^:]+):(?<currentValue>.*)"
       ],
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["**/\\.*\\.ya?ml$"],
+      "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": [
         "# renovate: image=(?<depName>.*?)\\s*image:\\s.*:(?<currentValue>.*)",
         "# renovate: image=(?<depName>.*?)\\s*tag:\\s.*:(?<currentValue>.*)"        
@@ -50,7 +50,7 @@
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["**/\\.*\\.ya?ml$"],
+      "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": [
         "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
         "# renovate: datasource=helm\n .*- name: (?<depName>.*?)\n *url: (?<registryUrl>.*?)\n *version: (?<currentValue>.*)\n"
@@ -58,7 +58,7 @@
       "datasourceTemplate": "helm"
     },
     {
-      "fileMatch": ["**/\\.*\\.ya?ml$"],
+      "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": [
         "# renovate: datasource=gitlab-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( registryUrl=(?<registryUrl>.*?))?\\s.*?_version:\\s*(?<currentValue>[.*])\\s",
         "# renovate: datasource=gitlab-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( registryUrl=(?<registryUrl>.*?))?\\s.*?_version:\\s*['\"](?<currentValue>.*)['\"]\\s"
@@ -67,7 +67,7 @@
       "datasourceTemplate": "gitlab-tags"
     },
     {
-      "fileMatch": ["**/\\.*\\.ya?ml$"],
+      "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": [
         "# renovate: datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?version:\\s*(?<currentValue>.*)\\s",
         "# renovate: datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?version:\\s*['\"](?<currentValue>.*)['\"]\\s"
@@ -77,7 +77,7 @@
     },
     {
       "fileMatch": [ 
-        "**/zarf\\.yaml$"
+        "\\.*/zarf\\.yaml$"
       ],
       "matchStrings": ["oci://ghcr.io/defenseunicorns/packages/init:(?<currentValue>v\\d+\\.\\d+\\.\\d+)-skeleton"],
       "datasourceTemplate": "github-tags",
@@ -86,7 +86,7 @@
     },
     {
       "fileMatch": [ 
-        "**/zarf\\.yaml$"
+        "\\.*/zarf\\.yaml$"
       ],
       "matchStrings": ["- (?<depName>.*):(?<currentValue>v\\d+\\.\\d+\\.\\d+)"],
       "datasourceTemplate": "docker",

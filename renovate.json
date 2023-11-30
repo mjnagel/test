@@ -45,7 +45,7 @@
       "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": [
         "# renovate: image=(?<depName>.*?)\\s*image:\\s.*:(?<currentValue>.*)",
-        "# renovate: image=(?<depName>.*?)\\s*tag:\\s.*:(?<currentValue>.*)"        
+        "# renovate: image=(?<depName>.*?)\\s*tag:\\s*(?<currentValue>.*)"        
       ],
       "datasourceTemplate": "docker"
     },

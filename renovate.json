@@ -4,6 +4,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "branchConcurrentLimit": 0,
   "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
   "rebaseStalePrs": true,
   "platform": "github",
   "requireConfig": "required",
@@ -110,7 +111,6 @@
       ],
       "groupName": "dependencies - {{groupSlug}}",
       "groupSlug": "githubactions",
-      "additionalBranchPrefix": "{{groupSlug}}-deps",
 
       "pinDigests": true,
       "matchDatasources": ["github-tags", "github-actions"]    
@@ -120,7 +120,6 @@
       "matchFileNames": ["package.json", "package-lock.json"],
       "groupName": "pepr",
       "commitMessageTopic": "{{groupSlug}} dependency updates",
-      "additionalBranchPrefix": "package-{{groupSlug}}-deps"
     }
   ]
 }

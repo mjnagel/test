@@ -10,6 +10,7 @@
   "requireConfig": "required",
   "rebaseWhen": "conflicted",
   "commitBodyTable": true,
+  "separateMajorMinor": false,
   "suppressNotifications": ["prIgnoreNotification"],
   "helm-values": {
     "fileMatch": ["\\.*\\.ya?ml$"]

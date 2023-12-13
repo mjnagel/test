@@ -91,7 +91,7 @@
       "commitMessageTopic": "{{groupName}}"
     },
     {
-      "matchFileNames": ["src/istio/**"],
+      "matchFileNames": ["src/promtail/**"],
       "groupName": "promtail",
       "commitMessageTopic": "{{groupName}}"
     },

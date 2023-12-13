@@ -86,38 +86,25 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["regex", "helm-values", "kubernetes"],
-      "matchFileNames": ["src/istio/\\.*"],
-      "groupName": "dependencies - {{groupSlug}}",
-      "groupSlug": "istio",
-      "commitMessageTopic": "{{groupSlug}}"
+      "matchFileNames": ["src/istio/**"],
+      "groupName": "istio",
+      "commitMessageTopic": "{{groupName}}"
     },
     {
-      "matchManagers": ["regex", "helm-values", "kubernetes"],
-      "matchFileNames": ["src/istio/\\.*"],
-      "groupName": "dependencies - {{groupSlug}}",
-      "groupSlug": "promtail",
-      "commitMessageTopic": "{{groupSlug}}"
+      "matchFileNames": ["src/istio/**"],
+      "groupName": "promtail",
+      "commitMessageTopic": "{{groupName}}"
     },
     { 
       "matchFileNames": [".github/**"],
-      "matchManagers": ["github-actions", "regex"],
-      "commitMessageTopic": "update {{groupSlug}}",
-      "matchDepTypes": [
-        "action",
-        "github-tags"
-      ],
-      "groupName": "dependencies - {{groupSlug}}",
-      "groupSlug": "githubactions",
-
-      "pinDigests": true,
-      "matchDatasources": ["github-tags", "github-actions"]    
+      "commitMessageTopic": "update {{groupName}}",
+      "groupName": "githubactions",
+      "pinDigests": true
     },
     {
-      "matchManagers": ["npm"],
       "matchFileNames": ["package.json", "package-lock.json"],
       "groupName": "pepr",
-      "commitMessageTopic": "{{groupSlug}} dependency updates",
+      "commitMessageTopic": "{{groupName}} dependency updates"
     }
   ]
 }

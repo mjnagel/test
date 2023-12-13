@@ -87,19 +87,17 @@
   "packageRules": [
     {
       "matchManagers": ["regex", "helm-values", "kubernetes"],
-      "matchFileNames": ["src/istio/**"],
+      "matchFileNames": ["src/istio/\\.*"],
       "groupName": "dependencies - {{groupSlug}}",
       "groupSlug": "istio",
-      "commitMessageTopic": "{{groupSlug}}",
-      "matchDatasources": ["github-tags", "docker", "helm", "gitlab-tags"] 
+      "commitMessageTopic": "{{groupSlug}}"
     },
     {
       "matchManagers": ["regex", "helm-values", "kubernetes"],
-      "matchFileNames": ["src/istio/**"],
+      "matchFileNames": ["src/istio/\\.*"],
       "groupName": "dependencies - {{groupSlug}}",
       "groupSlug": "promtail",
-      "commitMessageTopic": "{{groupSlug}}",
-      "matchDatasources": ["github-tags", "docker", "helm", "gitlab-tags"] 
+      "commitMessageTopic": "{{groupSlug}}"
     },
     { 
       "matchFileNames": [".github/**"],

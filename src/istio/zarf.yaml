@@ -103,7 +103,7 @@ components:
       # renovate: datasource=helm
       - name: gateway
         url: https://istio-release.storage.googleapis.com/charts
-        version: 1.19.3
+        version: 1.20.1
         releaseName: admin-ingressgateway
         namespace: istio-admin-gateway
       - name: uds-istio-config
@@ -120,7 +120,7 @@ components:
       # renovate: datasource=helm
       - name: gateway
         url: https://istio-release.storage.googleapis.com/charts
-        version: 1.19.3
+        version: 1.20.1
         releaseName: tenant-ingressgateway
         namespace: istio-tenant-gateway
       - name: uds-istio-config
@@ -137,7 +137,7 @@ components:
       # renovate: datasource=helm
       - name: gateway
         url: https://istio-release.storage.googleapis.com/charts
-        version: 1.19.3
+        version: 1.20.1
         releaseName: passthrough-ingressgateway
         namespace: istio-passthrough-gateway
       - name: uds-istio-config

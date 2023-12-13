@@ -97,14 +97,14 @@
     },
     { 
       "matchFileNames": [".github/**"],
-      "commitMessageTopic": "update {{groupName}}",
+      "commitMessageTopic": "{{groupName}}",
       "groupName": "githubactions",
       "pinDigests": true
     },
     {
       "matchFileNames": ["package.json", "package-lock.json"],
       "groupName": "pepr",
-      "commitMessageTopic": "{{groupName}} dependency updates"
+      "commitMessageTopic": "{{groupName}}"
     }
   ]
 }

@@ -103,9 +103,9 @@
       "pinDigests": true
     },
     {
-      "matchFileNames": ["package.json"],
-      "groupName": "pepr-deps",
-      "commitMessageTopic": "{{groupName}}"
+      "matchFileNames": ["package.json", "package-lock.json"],
+      "groupName": "pepr",
+      "commitMessageTopic": "pepr"
     }
   ]
 }

@@ -1,0 +1,7 @@
+name: passthrough
+
+hosts:
+  - "keycloak"
+
+tls:
+  enablePassthrough: true

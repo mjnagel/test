@@ -1,0 +1,148 @@
+kind: ZarfPackageConfig
+metadata:
+  name: uds-core-istio
+  description: "UDS Core Istio package"
+  url: https://istio.io/latest/
+
+variables:
+  - name: DOMAIN
+    description: "Cluster domain"
+    default: "uds.dev"
+
+components:
+  - name: istio-controlplane
+    description: "Install the Istio control plane with upstream (docker) images based on https://istio.io/latest/docs/setup/install/helm/"
+    required: true
+    only:
+      flavor: upstream
+    charts:
+      # renovate: datasource=helm
+      - name: base
+        namespace: istio-system
+        url: https://istio-release.storage.googleapis.com/charts
+        version: 1.19.3
+      # renovate: datasource=helm
+      - name: istiod
+        namespace: istio-system
+        url: https://istio-release.storage.googleapis.com/charts
+        version: 1.19.3
+        valuesFiles:
+          - "values/upstream-values.yaml"
+    manifests:
+      - name: uds-global-istio-config
+        namespace: istio-system
+        files:
+          - "manifests/envoy-filters.yaml"
+          - "manifests/peer-authentication.yaml"
+    images:
+      - "docker.io/istio/pilot:1.19.3-distroless"
+      - "docker.io/istio/proxyv2:1.19.3-distroless"
+
+  - name: istio-controlplane
+    description: "Install the Istio control plane with upstream (docker) images based on https://istio.io/latest/docs/setup/install/helm/"
+    required: true
+    only:
+      flavor: registry1
+    charts:
+      # renovate: datasource=helm
+      - name: base
+        namespace: istio-system
+        url: https://istio-release.storage.googleapis.com/charts
+        version: 1.19.3
+      # renovate: datasource=helm
+      - name: istiod
+        namespace: istio-system
+        url: https://istio-release.storage.googleapis.com/charts
+        version: 1.19.3
+        valuesFiles:
+          - "values/registry1-values.yaml"
+    manifests:
+      - name: uds-global-istio-config
+        namespace: istio-system
+        files:
+          - "manifests/envoy-filters.yaml"
+          - "manifests/peer-authentication.yaml"
+    images:
+      # - "registry1.dso.mil/ironbank/opensource/istio/pilot:1.19.3"
+      # - "registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.19.3"
+      - registry1.dso.mil/ironbank/tetrate/istio/proxyv2:1.19.3-tetratefips-v0
+      - registry1.dso.mil/ironbank/tetrate/istio/pilot:1.19.3-tetratefips-v0
+
+  - name: istio-controlplane
+    description: "Install the Istio control plane with upstream (docker) images based on https://istio.io/latest/docs/setup/install/helm/"
+    required: true
+    only:
+      flavor: cng
+    charts:
+      # renovate: datasource=helm
+      - name: base
+        url: https://istio-release.storage.googleapis.com/charts
+        version: 1.19.3
+        namespace: istio-system
+      # renovate: datasource=helm
+      - name: istiod
+        url: https://istio-release.storage.googleapis.com/charts
+        version: 1.19.3
+        namespace: istio-system
+        valuesFiles:
+          - "values/cng-values.yaml"
+    manifests:
+      - name: uds-global-istio-config
+        namespace: istio-system
+        files:
+          - "manifests/envoy-filters.yaml"
+          - "manifests/peer-authentication.yaml"
+    images:
+      - "cgr.dev/chainguard/istio-pilot:latest"
+      - "cgr.dev/chainguard/istio-proxy:latest"
+
+  - name: istio-admin-gateway
+    description: "Deploy an admin gateway"
+    required: true
+    charts:
+      # renovate: datasource=helm
+      - name: gateway
+        url: https://istio-release.storage.googleapis.com/charts
+        version: 1.19.3
+        releaseName: admin-ingressgateway
+        namespace: istio-admin-gateway
+      - name: uds-istio-config
+        version: 0.2.0
+        localPath: chart
+        namespace: istio-admin-gateway
+        valuesFiles:
+          - "values/config-admin.yaml"
+
+  - name: istio-tenant-gateway
+    description: "Deploy a tenant gateway"
+    required: true
+    charts:
+      # renovate: datasource=helm
+      - name: gateway
+        url: https://istio-release.storage.googleapis.com/charts
+        version: 1.19.3
+        releaseName: tenant-ingressgateway
+        namespace: istio-tenant-gateway
+      - name: uds-istio-config
+        version: 0.2.0
+        localPath: chart
+        namespace: istio-tenant-gateway
+        valuesFiles:
+          - "values/config-tenant.yaml"
+
+  - name: istio-passthrough-gateway
+    description: "Deploy a TLS passthrough gateway"
+    required: true
+    charts:
+      # renovate: datasource=helm
+      - name: gateway
+        url: https://istio-release.storage.googleapis.com/charts
+        version: 1.19.3
+        releaseName: passthrough-ingressgateway
+        namespace: istio-passthrough-gateway
+      - name: uds-istio-config
+        version: 0.2.0
+        localPath: chart
+        namespace: istio-passthrough-gateway
+        valuesFiles:
+          - "values/config-passthrough.yaml"

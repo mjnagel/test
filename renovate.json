@@ -4,36 +4,46 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    ":dependencyDashboard",
-    "group:all"
+    ":dependencyDashboard"
   ],
   "rebaseStalePrs": true,
   "dependencyDashboard": true,
   "platform": "github",
   "onboarding": false,
-  "requireConfig": false,
+  "requireConfig": "required",
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "rebaseWhen": "conflicted",
   "commitBodyTable": true,
   "suppressNotifications": ["prIgnoreNotification"],
   "helm-values": {
-    "fileMatch": ["./.+\\.yaml$"]
+    "fileMatch": ["\\.*\\.ya?ml$"]
   },
   "kubernetes": {
-    "fileMatch": ["\\.yaml$"]
+    "fileMatch": ["\\.*\\.ya?ml$"]
   },
-  "hostRules": [
+  "regexManagers":[
     {
-      "matchHost": "registry1.dso.mil",
-      "hostType": "docker",
-      "description": "Encrypted creds for registry1, scoped to this Github org using: https://github.com/renovatebot/renovate/blob/main/docs/usage/configuration-options.md#encrypted",
-      "encrypted": {
-        "username": "wcFMA/xDdHCJBTolAQ//d7ezVtvXfhrrRXDbTgt2Wz6WQM08LEYi+bDCYkb4RAK5zqNzT2qH2vRjyLusQAoFt8vVJfbUewNzmRj5iwJYz6pnAGT0tmq5KlVTKc8oSJrh7WAZZKEYwHlL30UBrR/BUoOBgbLEFRoWuDLWVXmN7v5taIJ2t1i7wzBffL68hpXeqIubBYwIgjamq23HePF/arWWC1p0cI46Q4excMWahSpcZxAopN2Xx20gyjhiQUixqU7QI+p9l7ZAS3LP35jcnfZATifCOvdho696SrkLXROu+zoKBSU9ssdaIohkkihvjNNr9perf59HKXNlLNjxj/koqzh+CeHiNOe4wWBPUGBLsjyplhsQNT70nFhPaP+gBXMljATtndiwnjUr1EJ26RnhBJObTE8haBsQXuxZqcd64VX6sZqC+O6VBy58nsw6lEL7WLImtjufuNIImSHmWbjVEk+vu/fETUblmJT+TznWw/+V12EQDZpw7EhmpQnRv8kene6BnUDGRI1YLaMjVUkgYRGzirvitCiyq+So9pvPkHxH18UTKVtZolPIKBLW71qseC2Lbft3U9Cke33eGUMNt3lClGdJSGZUsjojK9M8K/G5jmTIgEsGY/gAzsENtYETLK79jhetYRg1jGTRBhZxXcFeNVWhgzOrCMueEzLDQ2gN99LAfxd3beVBqk7SXQEd3I50djLoZyRLsVVCiGlkl5P3XRWnBAtKX9Vx1WSSslqV+X1uWs5WLMMZaZMDi9Hwj0vZcQkH547fX4BEHnp87kUuZyUvULXVVC5xJdTcLobB/VvpabyCpXhA7g",
-        "password": "wcFMA/xDdHCJBTolAQ//VUa0tY8Uce08kmBvb0jVNXtgYUZoSXgOewa3prqKBGaSnbU97z2L5ysfDCwJDSdZYpwfVKzSI03dI07XLQF0KhFSEsDzAJomstz/RkyqF8KONio51jv8EMfJJFGz8BqPsyN0sBV1fT7qZ403qSlE+1/BEWsl7vYC/ctofyoCVfqHS97R9PGh1iOxRjnTrGQPghFSl1O1MmJJHlvk1qTtzhhnotRUsYolf1UGj+7jATY8RK+lXiiVuCAAvebKdAhMIP7qOOcV2Pbg3f2OgTCCP59oXia8YK+DF1ISwzPcHftlH1u+LjsXSM0O26BsUelxOcCrgfAIaWeax7qNaQ5oLei2Ovmst4gSUKrUy4TiykMy7SEzoI46PA13RTx6zfOQ4d7vuUypWSkndamm2OclDJeb6Cwj16u0XFwA1Tr5mkXFDe5qnGg5Gs2db+2MbwKLD0c6jkmJlU+wZkCQ2EsTO7hNHOjrmTlNqndbAh5ucfqKprilWbp1JTF1oGowyOdbIVVoWnj2bLXs4m1G4P45Lem6+69+nn433CdU1NQH/U7YX3ANdjzJwLAPnJCW4rI8/+0+WoxSOW1M5EMMvG9RQpsJ9AVHTh1F2bw35vYcQYzTc9+7glWGN1QtRNIWFn/nYlvUdB2ZoAj9ScGTzbnBkbpFM+n1wO0S6mcMyLYbhpDSWwFbCDeqmCz1SUcBkCuyBsScw44xtU3X25NWrnfMsKAonvPnb0alNdq3vRz5oesiUxHVdTEqmmbFtP3kwGWVlUUhIR5sH9Y0vkiUYtP6vTGXt0fS637G4nLuq00"
-      }
-    }
-  ],
-  "regexManagers": [
+      "fileMatch": ["\\.*\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?version:\\s*(?<currentValue>.*)\\s",
+        "# renovate: datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?version:\\s*['\"](?<currentValue>.*)['\"]\\s"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "fileMatch": ["\\.*\\.ya?ml$"],
+      "matchStrings": ["- (?<depName>.*):(?<currentValue>v\\d+\\.\\d+\\.\\d+)"],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "semver"
+    },
+    {
+      "fileMatch": ["\\.*\\.ya?ml$"],
+      "matchStrings": ["url:\\s*oci://ghcr.io/defenseunicorns/packages/init:(?<currentValue>v\\d+\\.\\d+\\.\\d+)-skeleton"],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "defenseunicorns/zarf",
+      "versioningTemplate": "semver"
+    },
     {
       "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": [
@@ -45,7 +55,7 @@
       "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": [
         "# renovate: image=(?<depName>.*?)\\s*image:\\s.*:(?<currentValue>.*)",
-        "# renovate: image=(?<depName>.*?)\\s*tag:\\s*(?<currentValue>.*)"        
+        "# renovate: image=(?<depName>.*?)\\s*tag:\\s*(?<currentValue>.*)"
       ],
       "datasourceTemplate": "docker"
     },
@@ -65,92 +75,59 @@
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
       "datasourceTemplate": "gitlab-tags"
-    },
+    }
+  ],
+  "hostRules": [
     {
-      "fileMatch": ["\\.*\\.ya?ml$"],
-      "matchStrings": [
-        "# renovate: datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?version:\\s*(?<currentValue>.*)\\s",
-        "# renovate: datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?version:\\s*['\"](?<currentValue>.*)['\"]\\s"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
-      "datasourceTemplate": "github-tags"
-    },
-    {
-      "fileMatch": ["\\.*\\.ya?ml$"],
-      "matchStrings": ["url:\\s*oci://ghcr.io/defenseunicorns/packages/init:(?<currentValue>v\\d+\\.\\d+\\.\\d+)-skeleton"],
-      "datasourceTemplate": "github-tags",
-      "depNameTemplate": "defenseunicorns/zarf",
-      "versioningTemplate": "semver"
-    },
-    {
-      "fileMatch": ["\\.*\\.ya?ml$"],
-      "matchStrings": ["- (?<depName>.*):(?<currentValue>v\\d+\\.\\d+\\.\\d+)"],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "semver"
+      "matchHost": "registry1.dso.mil",
+      "hostType": "docker",
+      "description": "Encrypted creds for registry1, scoped to this Github org using: https://github.com/renovatebot/renovate/blob/main/docs/usage/configuration-options.md#encrypted",
+      "encrypted": {
+        "username": "wcFMA/xDdHCJBTolAQ//UzXSCEMHNubfpRYOjGGQr6mdUN9zHH0WJQa5o5VM7xFCvhAd9H+iPSl4P7fNuQif2ft90RSKYlrFEuq8/kDOU3nRrQd/k8zXupWUSx8F3pKe35+ul/EgCxQq1qTNi2eIc1lPw7J6mYfidLd5BjfQJ+rE1VyLORuz1uAi4G9XyVvGZkbv4SPpzc7cKAiiBaFLGMniRq+yA3dr8CdNIjy4OLwTI9udllXJMYxKm0G0cO++hLluHU3cORcwhdrzzl5JjH9cm5XUp33aKniQjPz7DaqC2+xa3HXijtwSQ8rNQKVSdHSsYmPiv4d2oIJLy4TJ0Kqu4bvM0Siqfz8QCMX/2HFDxhzhl2lJ/tv6nE0uKdDCB0svyu5ChqRNkNd+T6mmrMAtv59bfUIdM2teA5iZKB+aHzBihxJQEdBrVOxizzF9cyFkqW4pcgXBZUIiNvGKey1JNrc3PlXjS/odVViDgQnrqTShABU3pELOwZcIthyyanMILo553nrvVAhRG8aoBIq3skOPOltOkW93XXs5T4bxq+7NPWAfd3BKu3P3T5FiGYoeFauN3b6IcynYP6tRCB6tuvWtcwX96IRDT9IIwgLrNTlSW8BeLra6WUc9nw6ETxe9ePaRf9dnFz/3Wytgd2JPhWkhQy56UK4TB1/spCadGQawqFUZmZJQZDUBl57SXQEQsDba8NK3yNWHtuTqmlx7v/scWtKhn14Bqyls7uGFkNqT604myN2A6x885LJ+7DRJ59F2PhZamIuTQvwk+wqokwFQjSy7j6SN87S0lavqNrXCqt60cTcwW877bQ",
+        "password": "wcFMA/xDdHCJBTolAQ/+PovkbYqx3uGU1OG4ZLPh6gvZnwOwlc/vezhpE0T9pKIFSFKwepoaHTdHWEA9FXhoGgz/hd9oeQyYs4f9+Dy/qVw0QKudksD8Djx8edFSwK6yrElNcqi8QnTefYU99mo+PQGCBhTxuTv9eTNYCv2hTMLBhzxdgkM8GDTnsJSbT3EAYuiU6OMNG/zrgpGGlBZD4qkUv8qzolE1KKbsmBPWhYLsz+8a82HxpRerJ0TNe5m8NYmnNJG0SbwnWh58mXbcCAnuIuLJ6bajA1DuyW7JAYohXP1kPbA7FvWFiYvCNqFFfVEQj3JWoL+3iKZLMw2ufzUocGbvg0hdR6Cwbu29SP2mRwErIFD5Df5CBBVaDHWebO+P4pvVafQvORuTVGLXcpwANNha9uKVA7UGmh5urtW90Y1vaK6fk7kJMiHyR2nmzBfxRawZuQogs5iPbAQwnY45jZoJaIDj95ZTS1QWgOE3X3FxWYIUcT0jKq+Xv/C3OqiDN4/+YQeudfHlSTpVVAeKGqACku9SKEHvNpvhADrR2pEKeIehrCtm+nHqpzOaV1s0k7yL4hjBOrgMtL6VNqD6R25q263tCMaawfeUS9hyLPVB71hr+31IgAUF7flDRAqgKwkBl3Yab1G3sARID7HCEut546ny1F9+TgQUaNWapIAnMFkfU8OVL9H/S+7SdgErFGu+L0Dj9iOZPQAr3S4DUB+ALxNMaEymRMoOKpcWvf4+xKDbFXWbfDmloJj8irtxwtCiBy0UqD4tj7sXdo/bxkMhG0Hj1N3KJL39jT0dSRirbuAG0KDOZUheAhMjDn6bwKXcPGVbUxELEWi0YseEXOZpoEU"
+      }
     }
   ],
   "packageRules": [
     {
-      "datasources": ["gitlab-tags"],
-      "commitMessageTopic": "Gitlab tag {{depName}}",
-      "separateMinorPatch": true
+      "matchManagers": ["regex", "helm-values", "kubernetes"],
+      "matchFileNames": ["src/{{groupSlug}}/**"],
+      "groupName": "dependencies - {{groupSlug}}",
+      "groupSlug": "istio",
+      "commitMessageTopic": "{{groupSlug}}",
+      "additionalBranchPrefix": "package-{{groupSlug}}-deps",
+      "matchDatasources": ["github-tags", "docker", "helm", "gitlab-tags"] 
     },
     {
-      "datasources": ["helm"],
-      "commitMessageTopic": "Helm chart {{depName}}",
-      "separateMinorPatch": true
+      "matchManagers": ["regex", "helm-values", "kubernetes"],
+      "matchFileNames": ["src/{{groupSlug}}/**"],
+      "groupName": "dependencies - {{groupSlug}}",
+      "groupSlug": "promtail",
+      "commitMessageTopic": "{{groupSlug}}",
+      "additionalBranchPrefix": "package-{{groupSlug}}-deps",
+      "matchDatasources": ["github-tags", "docker", "helm", "gitlab-tags"] 
+    },
+    { 
+      "matchFileNames": [".github/**"],
+      "matchManagers": ["github-actions", "regex"],
+      "commitMessageTopic": "update {{groupSlug}}",
+      "matchDepTypes": [
+        "action",
+        "github-tags"
+      ],
+      "groupName": "dependencies - {{groupSlug}}",
+      "groupSlug": "githubactions",
+      "additionalBranchPrefix": "{{groupSlug}}-deps",
+
+      "pinDigests": true,
+      "matchDatasources": ["github-tags", "github-actions"]    
     },
     {
-      "datasources": ["docker"],
-      "commitMessageTopic": "Docker image {{depName}}",
-      "commitMessageExtra": "to {{#if isSingleVersion}}v{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
-      "enabled": true,
-      "separateMinorPatch": true
-    },
-    {
-      "datasources": ["gitlab-tags"],
-      "updateTypes": ["major"],
-      "labels": ["renovate/gitlab-tags", "dependency/major"]
-    },
-    {
-      "datasources": ["gitlab-tags"],
-      "updateTypes": ["minor"],
-      "labels": ["renovate/gitlab-tags", "dependency/minor"]
-    },
-    {
-      "datasources": ["gitlab-tags"],
-      "updateTypes": ["patch"],
-      "labels": ["renovate/gitlab-tags", "dependency/patch"]
-    },
-    {
-      "datasources": ["docker"],
-      "updateTypes": ["major"],
-      "labels": ["renovate/image-release", "dependency/major"]
-    },
-    {
-      "datasources": ["docker"],
-      "updateTypes": ["minor"],
-      "labels": ["renovate/image-release", "dependency/minor"]
-    },
-    {
-      "datasources": ["docker"],
-      "updateTypes": ["patch"],
-      "labels": ["renovate/image-release", "dependency/patch"]
-    },
-    {
-      "datasources": ["helm"],
-      "updateTypes": ["major"],
-      "labels": ["renovate/helm-release", "dependency/major"]
-    },
-    {
-      "datasources": ["helm"],
-      "updateTypes": ["minor"],
-      "labels": ["renovate/helm-release", "dependency/minor"]
-    },
-    {
-      "datasources": ["helm"],
-      "updateTypes": ["patch"],
-      "labels": ["renovate/helm-release", "dependency/patch"]
+      "matchManagers": ["npm"],
+      "matchFileNames": ["package.json", "package-lock.json"],
+      "groupName": "pepr",
+      "commitMessageTopic": "{{groupSlug}} dependency updates",
+      "additionalBranchPrefix": "package-{{groupSlug}}-deps"
     }
   ]
 }

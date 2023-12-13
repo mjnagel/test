@@ -105,7 +105,7 @@
     {
       "matchFileNames": ["package.json", "package-lock.json"],
       "groupName": "pepr",
-      "commitMessageTopic": "pepr"
+      "commitMessageTopic": "{{groupName}}"
     }
   ]
 }

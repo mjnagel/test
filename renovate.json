@@ -86,7 +86,7 @@
   "packageRules": [
     {
       "matchManagers": ["regex", "helm-values", "kubernetes"],
-      "matchFileNames": ["src/{{groupSlug}}/\\.*"],
+      "matchFileNames": ["src/istio/**"],
       "groupName": "dependencies - {{groupSlug}}",
       "groupSlug": "istio",
       "commitMessageTopic": "{{groupSlug}}",
@@ -94,7 +94,7 @@
     },
     {
       "matchManagers": ["regex", "helm-values", "kubernetes"],
-      "matchFileNames": ["src/{{groupSlug}}/\\.*"],
+      "matchFileNames": ["src/istio/**"],
       "groupName": "dependencies - {{groupSlug}}",
       "groupSlug": "promtail",
       "commitMessageTopic": "{{groupSlug}}",

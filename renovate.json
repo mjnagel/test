@@ -2,10 +2,6 @@
   "enabled": true,
   "forkProcessing": "enabled",
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base",
-    ":dependencyDashboard"
-  ],
   "rebaseStalePrs": true,
   "dependencyDashboard": true,
   "platform": "github",

@@ -2,12 +2,10 @@
   "enabled": true,
   "forkProcessing": "enabled",
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "branchConcurrentLimit": 0,
   "rebaseStalePrs": true,
-  "dependencyDashboard": true,
   "platform": "github",
-  "onboarding": false,
   "requireConfig": "required",
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "rebaseWhen": "conflicted",
   "commitBodyTable": true,
   "suppressNotifications": ["prIgnoreNotification"],
@@ -87,20 +85,18 @@
   "packageRules": [
     {
       "matchManagers": ["regex", "helm-values", "kubernetes"],
-      "matchFileNames": ["src/{{groupSlug}}/**"],
+      "matchFileNames": ["src/{{groupSlug}}/\\.*"],
       "groupName": "dependencies - {{groupSlug}}",
       "groupSlug": "istio",
       "commitMessageTopic": "{{groupSlug}}",
-      "additionalBranchPrefix": "package-{{groupSlug}}-deps",
       "matchDatasources": ["github-tags", "docker", "helm", "gitlab-tags"] 
     },
     {
       "matchManagers": ["regex", "helm-values", "kubernetes"],
-      "matchFileNames": ["src/{{groupSlug}}/**"],
+      "matchFileNames": ["src/{{groupSlug}}/\\.*"],
       "groupName": "dependencies - {{groupSlug}}",
       "groupSlug": "promtail",
       "commitMessageTopic": "{{groupSlug}}",
-      "additionalBranchPrefix": "package-{{groupSlug}}-deps",
       "matchDatasources": ["github-tags", "docker", "helm", "gitlab-tags"] 
     },
     { 

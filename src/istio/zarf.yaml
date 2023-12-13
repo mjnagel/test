@@ -77,7 +77,7 @@ components:
       # renovate: datasource=helm
       - name: base
         url: https://istio-release.storage.googleapis.com/charts
-        version: 1.19.3
+        version: 1.20.1
         namespace: istio-system
       # renovate: datasource=helm
       - name: istiod

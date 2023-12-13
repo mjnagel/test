@@ -103,8 +103,7 @@
       "pinDigests": true
     },
     {
-      "matchFileNames": ["package.json", "package-lock.json"],
-      "matchManagers": ["npm"],
+      "matchFileNames": ["package.json"],
       "groupName": "pepr",
       "commitMessageTopic": "{{groupName}}"
     }

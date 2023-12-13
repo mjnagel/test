@@ -88,29 +88,29 @@
   "packageRules": [
     {
       "matchFileNames": ["src/istio/**"],
-      "groupSlug": "istio",
-      "commitMessageTopic": "{{groupSlug}}"
+      "groupName": "istio",
+      "commitMessageTopic": "{{groupName}}"
     },
     {
       "matchFileNames": ["src/promtail/**"],
-      "groupSlug": "promtail",
-      "commitMessageTopic": "{{groupSlug}}"
+      "groupName": "promtail",
+      "commitMessageTopic": "{{groupName}}"
     },
     {
       "matchPackageNames": ["zarf"],
-      "groupSlug": "zarf",
-      "commitMessageTopic": "{{groupSlug}}"
+      "groupName": "zarf",
+      "commitMessageTopic": "{{groupName}}"
     },
     { 
       "matchFileNames": [".github/**"],
-      "groupSlug": "githubactions",
-      "commitMessageTopic": "{{groupSlug}}",
+      "groupName": "githubactions",
+      "commitMessageTopic": "{{groupName}}",
       "pinDigests": true
     },
     {
       "matchFileNames": ["package.json", "package-lock.json"],
-      "groupSlug": "pepr",
-      "commitMessageTopic": "{{groupSlug}}"
+      "groupName": "pepr",
+      "commitMessageTopic": "{{groupName}}"
     }
   ]
 }

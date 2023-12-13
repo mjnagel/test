@@ -89,15 +89,15 @@
     {
       "matchFileNames": ["src/istio/**"],
       "groupName": "istio",
-      "commitMessageTopic": "{{groupName}}"
+      "commitMessageTopic": "{{groupName}} dependencies"
     },
     {
       "matchFileNames": ["src/promtail/**"],
       "groupName": "promtail",
-      "commitMessageTopic": "{{groupName}}"
+      "commitMessageTopic": "{{groupName}} dependencies"
     },
     {
-      "matchPackageNames": ["zarf"],
+      "matchPackageNames": ["defenseunicorns/zarf"],
       "groupName": "zarf",
       "commitMessageTopic": "{{groupName}}"
     },
@@ -110,7 +110,7 @@
     {
       "matchFileNames": ["package.json", "package-lock.json"],
       "groupName": "pepr",
-      "commitMessageTopic": "{{groupName}}"
+      "commitMessageTopic": "{{groupName}} dependencies"
     }
   ]
 }

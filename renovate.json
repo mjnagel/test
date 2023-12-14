@@ -30,7 +30,7 @@
     },
     {
       "fileMatch": ["\\.*\\.ya?ml$"],
-      "matchStrings": ["- (?<depName>.*):(?<currentValue>v\\d+\\.\\d+\\.\\d+)"],
+      "matchStrings": ["- (?<depName>.*):(?<currentValue>.*)"],
       "datasourceTemplate": "docker"
     },
     {

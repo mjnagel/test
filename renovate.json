@@ -31,8 +31,7 @@
     {
       "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": ["- (?<depName>.*):(?<currentValue>v\\d+\\.\\d+\\.\\d+)"],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "semver"
+      "datasourceTemplate": "docker"
     },
     {
       "fileMatch": ["\\.*\\.ya?ml$"],

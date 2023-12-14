@@ -102,7 +102,7 @@
     },
     { 
       "matchFileNames": [".github/**"],
-      "excludePackageNames": ["defenseunicorns/zarf"];
+      "excludePackageNames": ["defenseunicorns/zarf"],
       "groupName": "githubactions",
       "commitMessageTopic": "githubactions",
       "pinDigests": true

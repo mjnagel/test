@@ -1,13 +1,13 @@
 
 pilot:
-  image: "registry1.dso.mil/ironbank/tetrate/istio/pilot:1.19.3-tetratefips-v0"
+  image: "registry1.dso.mil/ironbank/tetrate/istio/pilot:1.19.2-tetratefips-v0"
 global:
   # #variant: distroless
   proxy_init:
     # Base name for the proxy_init container, used to configure iptables.
-    image: "registry1.dso.mil/ironbank/tetrate/istio/proxyv2:1.19.3-tetratefips-v0"
+    image: "registry1.dso.mil/ironbank/tetrate/istio/proxyv2:1.19.2-tetratefips-v0"
 
   proxy:
-    image: "registry1.dso.mil/ironbank/tetrate/istio/proxyv2:1.19.3-tetratefips-v0"
+    image: "registry1.dso.mil/ironbank/tetrate/istio/proxyv2:1.19.2-tetratefips-v0"
 meshConfig:
   accessLogFile: /dev/stdout

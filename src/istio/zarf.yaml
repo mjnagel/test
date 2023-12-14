@@ -35,8 +35,8 @@ components:
           - "manifests/envoy-filters.yaml"
           - "manifests/peer-authentication.yaml"
     images:
-      - "docker.io/istio/pilot:1.19.3-distroless"
-      - "docker.io/istio/proxyv2:1.19.3-distroless"
+      - docker.io/istio/pilot:1.19.3-distroless
+      - docker.io/istio/proxyv2:1.19.3-distroless
 
   - name: istio-controlplane
     description: "Install the Istio control plane with upstream (docker) images based on https://istio.io/latest/docs/setup/install/helm/"

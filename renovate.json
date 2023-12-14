@@ -95,16 +95,16 @@
       "groupName": "promtail",
       "commitMessageTopic": "promtail"
     },
-    {
-      "matchPackageNames": ["defenseunicorns/zarf"],
-      "groupName": "zarf",
-      "commitMessageTopic": "zarf"
-    },
     { 
       "matchFileNames": [".github/**"],
       "groupName": "githubactions",
       "commitMessageTopic": "githubactions",
       "pinDigests": true
+    },
+    {
+      "matchPackageNames": ["defenseunicorns/zarf"],
+      "groupName": "zarf",
+      "commitMessageTopic": "zarf"
     },
     {
       "matchFileNames": ["package.json", "package-lock.json"],

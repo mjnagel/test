@@ -1,5 +1,5 @@
 tasks:
-  - name: validate
+  - name: run
     description: Test app used for UDS Core validation
     actions:
       - description: Apply the test resources

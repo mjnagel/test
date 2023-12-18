@@ -3,13 +3,13 @@
   "extends": [
     ":dependencyDashboard",
     ":semanticCommits",
-    ":semanticCommitTypeAll(chore)"
+    ":semanticCommitTypeAll(chore)",
+    ":semanticCommitScopeDisabled"
   ],
   "forkProcessing": "enabled",
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "branchConcurrentLimit": 0,
   "prConcurrentLimit": 0,
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "prHourlyLimit": 0,
   "rebaseStalePrs": true,
   "platform": "github",
@@ -26,25 +26,39 @@
   },
   "regexManagers":[
     {
-      "fileMatch": ["\\.*\\.ya?ml$"],
+      "fileMatch": ["\\.*\\.ya?ml$", "^\\.vscode/settings\\.json$"],
       "matchStrings": [
-        "# renovate: datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?version:\\s*(?<currentValue>.*)\\s",
-        "# renovate: datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?version:\\s*['\"](?<currentValue>.*)['\"]\\s"
+        "# renovate: datasource=github-tags depName=(?<depName>[^ ]+) versioning=(?<versioning>.*?)( extractVersion=(?<extractVersion>.*?))?\n.*?(?:version:|ref:) (?<currentValue>[^\\s]+)",
+        "\/\/ renovate: datasource=github-tags depName=(?<depName>[^ ]+) versioning=(?<versioning>.*?)( extractVersion=(?<extractVersion>.*?))?\n.*?(https:\/\/raw.githubusercontent.com\/defenseunicorns\/zarf\/)(?<currentValue>[^\\s]+)\/"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
       "datasourceTemplate": "github-tags"
+
+    },
+    {
+      "depNameTemplate": "defenseunicorns/uds-cli",
+      "fileMatch": ["\\.*\\.ya?ml$", "^\\.vscode/settings\\.json$"],
+      "matchStrings": [
+        "# renovate: datasource=github-tags depName=(?<depName>[^ ]+) versioning=(?<versioning>[^\n]+)\n.*?uds@(?<currentValue>[^\\s]+)",
+        "\/\/ renovate: datasource=github-tags depName=(?<depName>[^ ]+) versioning=(?<versioning>.*?)( extractVersion=(?<extractVersion>.*?))?\n.*?(https:\/\/raw.githubusercontent.com\/defenseunicorns\/uds-cli\/v)(?<currentValue>[^\\s]+)\/"
+      ],
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.*)$"
+    },
+    {
+      "depNameTemplate": "defenseunicorns/uds-k3d",
+      "fileMatch": ["\\.*\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: datasource=github-tags depName=(?<depName>[^ ]+) versioning=(?<versioning>.*?)\n.*?(?:version:|ref:) (?<currentValue>[^\\s]+)"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.*)$"
     },
     {
       "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": ["- (?<depName>.*):(?<currentValue>.*)"],
       "datasourceTemplate": "docker"
-    },
-    {
-      "fileMatch": ["\\.*\\.ya?ml$"],
-      "matchStrings": ["url:\\s*oci://ghcr.io/defenseunicorns/packages/init:(?<currentValue>v\\d+\\.\\d+\\.\\d+)-skeleton"],
-      "datasourceTemplate": "github-tags",
-      "depNameTemplate": "defenseunicorns/zarf",
-      "versioningTemplate": "semver"
     },
     {
       "fileMatch": ["\\.*\\.ya?ml$"],
@@ -77,7 +91,16 @@
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
       "datasourceTemplate": "gitlab-tags"
+    },
+    {
+      "fileMatch": ["^chart/values\\.yaml$"],
+      "matchStrings": [
+        "registry: registry1.dso.mil\\s+tag:\\s+(?<currentValue>.+)"
+      ],
+      "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/manager",
+      "datasourceTemplate": "docker"
     }
+
   ],
   "hostRules": [
     {
@@ -151,9 +174,19 @@
       "groupName": "zarf",
       "commitMessageTopic": "zarf"
     },
+    {
+      "matchPackageNames": ["defenseunicorns/uds-cli"],
+      "groupName": "uds",
+      "commitMessageTopic": "uds"
+    },
+    {
+      "matchPackageNames": ["defenseunicorns/uds-k3d"],
+      "groupName": "uds-k3d",
+      "commitMessageTopic": "uds-k3d"
+    },
     { 
       "matchFileNames": [".github/**"],
-      "excludePackageNames": ["defenseunicorns/zarf"],
+      "excludePackageNames": ["defenseunicorns/zarf","defenseunicorns/uds-cli"],
       "groupName": "githubactions",
       "commitMessageTopic": "githubactions",
       "pinDigests": true

@@ -20,7 +20,13 @@ enforcer:
     runAsUser: 1000
 
 controller:
-
+  # containerSecurityContext:
+  #   capabilities:
+  #     drop:
+  #       - ALL
+  #   privileged: true
+  #   runAsNonRoot: true
+  #   runAsUser: 1000
   apisvc:
     type: ClusterIP
   secret:

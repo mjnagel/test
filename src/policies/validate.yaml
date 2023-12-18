@@ -1,4 +1,0 @@
-tasks:
-  - name: run
-    actions:
-      - cmd: "echo $PWD && npx jest src/policies/**/*.spec.ts"

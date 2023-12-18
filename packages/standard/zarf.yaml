@@ -1,0 +1,76 @@
+kind: ZarfPackageConfig
+metadata:
+  name: core
+  description: "UDS Core"
+  authors: "Defense Unicorns - Product"
+  # x-release-please-start-version
+  version: "0.6.2"
+  # x-release-please-end
+
+components:
+  - name: prometheus-operator-crds
+    required: true
+    import:
+      path: ../../src/prometheus-stack
+
+  # Istio
+  - name: istio-controlplane
+    required: true
+    import:
+      path: ../../src/istio
+
+  - name: istio-admin-gateway
+    required: true
+    import:
+      path: ../../src/istio
+
+  - name: istio-tenant-gateway
+    required: true
+    import:
+      path: ../../src/istio
+
+  - name: istio-passthrough-gateway
+    required: true
+    import:
+      path: ../../src/istio
+
+  # Pepr the world
+  - name: pepr-uds-core
+    required: true
+    import:
+      path: ../../dist
+      name: module
+
+  # Metrics Server
+  - name: metrics-server
+    required: true
+    import:
+      path: ../../src/metrics-server
+
+  # Neuvector
+  - name: neuvector
+    required: true
+    import:
+      path: ../../src/neuvector
+
+  # Loki
+  - name: loki
+    required: true
+    import:
+      path: ../../src/loki
+
+  # Prometheus
+  - name: kube-prometheus-stack
+    required: true
+    import:
+      path: ../../src/prometheus-stack
+
+  - name: promtail
+    required: true
+    import:
+      path: ../../src/promtail
+
+  - name: grafana
+    required: true
+    import:
+      path: ../../src/grafana

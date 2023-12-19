@@ -56,6 +56,14 @@
     {
       "fileMatch": ["\\.*\\.ya?ml$"],
       "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
+        "- name: (?<depName>.*?)\n *url: (?<registryUrl>.*?)\n *version: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    {
+      "fileMatch": ["\\.*\\.ya?ml$"],
+      "matchStrings": [
         "- [\"]?(?<depName>[^\"]*):(?<currentValue>[^\"]*)[\"]?"
       ],
       "datasourceTemplate": "docker"
@@ -74,14 +82,6 @@
         "# renovate: image=(?<depName>.*?)\\s*tag:\\s*(?<currentValue>.*)"
       ],
       "datasourceTemplate": "docker"
-    },
-    {
-      "fileMatch": ["\\.*\\.ya?ml$"],
-      "matchStrings": [
-        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
-        "- name: (?<depName>.*?)\n *url: (?<registryUrl>.*?)\n *version: (?<currentValue>.*)\n"
-      ],
-      "datasourceTemplate": "helm"
     },
     {
       "fileMatch": ["\\.*\\.ya?ml$"],

@@ -18,7 +18,8 @@
   "separateMajorMinor": false,
   "suppressNotifications": ["prIgnoreNotification"],
   "helm-values": {
-    "fileMatch": ["\\.*\\.ya?ml$"]
+    "fileMatch": ["\\.*\\.ya?ml$"],
+    "ignorePaths": ["src/neuvector/values/**"]
   },
   "kubernetes": {
     "fileMatch": ["\\.*\\.ya?ml$"]
@@ -96,14 +97,21 @@
       "datasourceTemplate": "gitlab-tags"
     },
     {
-      "fileMatch": ["^chart/values\\.yaml$"],
+      "fileMatch": ["^src/neuvector/values/upstream-values\\.yaml$"],
+      "matchStrings": [
+        "registry: docker.io\\s+tag:\\s+(?<currentValue>.+)"
+      ],
+      "depNameTemplate": "docker.io/neuvector/manager",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["^src/neuvector/values/registry1-values\\.yaml$"],
       "matchStrings": [
         "registry: registry1.dso.mil\\s+tag:\\s+(?<currentValue>.+)"
       ],
-      "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/manager",
+      "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/controller",
       "datasourceTemplate": "docker"
     }
-
   ],
   "hostRules": [
     {

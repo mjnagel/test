@@ -111,6 +111,13 @@
       ],
       "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/controller",
       "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["^src/neuvector/values/.*\\.yaml$"],
+      "matchStrings": [
+        "registry: (?<registryUrlTemplate>.*?)\n.*\n\\s+repository:\\s+(?<depNameTemplate>.*?)\n\\s+tag:\\s+(?<currentValue>.+)"
+      ],
+      "datasourceTemplate": "docker"
     }
   ],
   "hostRules": [

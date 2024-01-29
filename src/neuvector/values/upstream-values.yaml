@@ -30,7 +30,7 @@ cve:
   scanner:
     image:
       repository: neuvector/scanner
-      tag: 5
+      tag: 4
     containerSecurityContext:
       capabilities:
         drop:

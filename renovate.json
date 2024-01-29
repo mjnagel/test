@@ -11,8 +11,6 @@
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "rebaseStalePrs": true,
-  "platform": "github",
-  "requireConfig": "required",
   "rebaseWhen": "conflicted",
   "commitBodyTable": true,
   "separateMajorMinor": false,
@@ -117,6 +115,7 @@
       "matchStrings": [
         "registry:\\s+(?<registryUrl>.*?)\n(.|\\s)*repository:\\s+(?<depName>.*?)\\s+tag:\\s+(?<currentValue>.+)"
       ],
+      "registryUrlTemplate": "https://{{{registryUrl}}}",
       "datasourceTemplate": "docker"
     }
   ],

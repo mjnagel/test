@@ -115,7 +115,7 @@
     {
       "fileMatch": ["^src/neuvector/values/.*\\.yaml$"],
       "matchStrings": [
-        "registry:\\s+(?<registryUrl>.*?)(.|\\s)*repository:\\s+(?<depName>.*?)\\s+tag:\\s+(?<currentValue>.+)"
+        "registry:\\s+(?<registryUrl>.*?)\n(.|\\s)*repository:\\s+(?<depName>.*?)\\s+tag:\\s+(?<currentValue>.+)"
       ],
       "datasourceTemplate": "docker"
     }

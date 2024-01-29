@@ -101,7 +101,7 @@
       "matchStrings": [
         "registry: docker.io\\s+tag:\\s+(?<currentValue>.+)"
       ],
-      "depNameTemplate": "docker.io/neuvector/manager",
+      "depNameTemplate": "docker.io/neuvector/controller",
       "datasourceTemplate": "docker"
     },
     {

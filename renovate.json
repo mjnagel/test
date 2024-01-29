@@ -17,7 +17,7 @@
   "suppressNotifications": ["prIgnoreNotification"],
   "helm-values": {
     "fileMatch": ["\\.*\\.ya?ml$"],
-    "ignorePaths": ["src/neuvector/values/.*\\.yaml"]
+    "ignorePaths": ["src/neuvector/values"]
   },
   "kubernetes": {
     "fileMatch": ["\\.*\\.ya?ml$"]

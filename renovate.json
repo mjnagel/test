@@ -15,7 +15,7 @@
   "commitBodyTable": true,
   "separateMajorMinor": false,
   "suppressNotifications": ["prIgnoreNotification"],
-  "labels": "renovate",
+  "labels": ["renovate"],
   "helm-values": {
     "fileMatch": ["\\.*\\.ya?ml$"],
     "ignorePaths": ["src/neuvector/values"]

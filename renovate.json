@@ -8,6 +8,7 @@
   "forkProcessing": "enabled",
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "branchConcurrentLimit": 0,
+  "labels": ["renovate"],
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "rebaseStalePrs": true,
@@ -15,7 +16,6 @@
   "commitBodyTable": true,
   "separateMajorMinor": false,
   "suppressNotifications": ["prIgnoreNotification"],
-  "labels": ["renovate"],
   "helm-values": {
     "fileMatch": ["\\.*\\.ya?ml$"],
     "ignorePaths": ["src/neuvector/values"]
@@ -126,8 +126,8 @@
       "hostType": "docker",
       "description": "Encrypted creds for registry1, scoped to this Github org using: https://github.com/renovatebot/renovate/blob/main/docs/usage/configuration-options.md#encrypted",
       "encrypted": {
-        "username": "wcFMA/xDdHCJBTolAQ//d7ezVtvXfhrrRXDbTgt2Wz6WQM08LEYi+bDCYkb4RAK5zqNzT2qH2vRjyLusQAoFt8vVJfbUewNzmRj5iwJYz6pnAGT0tmq5KlVTKc8oSJrh7WAZZKEYwHlL30UBrR/BUoOBgbLEFRoWuDLWVXmN7v5taIJ2t1i7wzBffL68hpXeqIubBYwIgjamq23HePF/arWWC1p0cI46Q4excMWahSpcZxAopN2Xx20gyjhiQUixqU7QI+p9l7ZAS3LP35jcnfZATifCOvdho696SrkLXROu+zoKBSU9ssdaIohkkihvjNNr9perf59HKXNlLNjxj/koqzh+CeHiNOe4wWBPUGBLsjyplhsQNT70nFhPaP+gBXMljATtndiwnjUr1EJ26RnhBJObTE8haBsQXuxZqcd64VX6sZqC+O6VBy58nsw6lEL7WLImtjufuNIImSHmWbjVEk+vu/fETUblmJT+TznWw/+V12EQDZpw7EhmpQnRv8kene6BnUDGRI1YLaMjVUkgYRGzirvitCiyq+So9pvPkHxH18UTKVtZolPIKBLW71qseC2Lbft3U9Cke33eGUMNt3lClGdJSGZUsjojK9M8K/G5jmTIgEsGY/gAzsENtYETLK79jhetYRg1jGTRBhZxXcFeNVWhgzOrCMueEzLDQ2gN99LAfxd3beVBqk7SXQEd3I50djLoZyRLsVVCiGlkl5P3XRWnBAtKX9Vx1WSSslqV+X1uWs5WLMMZaZMDi9Hwj0vZcQkH547fX4BEHnp87kUuZyUvULXVVC5xJdTcLobB/VvpabyCpXhA7g",
-        "password": "wcFMA/xDdHCJBTolAQ//VUa0tY8Uce08kmBvb0jVNXtgYUZoSXgOewa3prqKBGaSnbU97z2L5ysfDCwJDSdZYpwfVKzSI03dI07XLQF0KhFSEsDzAJomstz/RkyqF8KONio51jv8EMfJJFGz8BqPsyN0sBV1fT7qZ403qSlE+1/BEWsl7vYC/ctofyoCVfqHS97R9PGh1iOxRjnTrGQPghFSl1O1MmJJHlvk1qTtzhhnotRUsYolf1UGj+7jATY8RK+lXiiVuCAAvebKdAhMIP7qOOcV2Pbg3f2OgTCCP59oXia8YK+DF1ISwzPcHftlH1u+LjsXSM0O26BsUelxOcCrgfAIaWeax7qNaQ5oLei2Ovmst4gSUKrUy4TiykMy7SEzoI46PA13RTx6zfOQ4d7vuUypWSkndamm2OclDJeb6Cwj16u0XFwA1Tr5mkXFDe5qnGg5Gs2db+2MbwKLD0c6jkmJlU+wZkCQ2EsTO7hNHOjrmTlNqndbAh5ucfqKprilWbp1JTF1oGowyOdbIVVoWnj2bLXs4m1G4P45Lem6+69+nn433CdU1NQH/U7YX3ANdjzJwLAPnJCW4rI8/+0+WoxSOW1M5EMMvG9RQpsJ9AVHTh1F2bw35vYcQYzTc9+7glWGN1QtRNIWFn/nYlvUdB2ZoAj9ScGTzbnBkbpFM+n1wO0S6mcMyLYbhpDSWwFbCDeqmCz1SUcBkCuyBsScw44xtU3X25NWrnfMsKAonvPnb0alNdq3vRz5oesiUxHVdTEqmmbFtP3kwGWVlUUhIR5sH9Y0vkiUYtP6vTGXt0fS637G4nLuq00"
+        "username": "wcFMA/xDdHCJBTolAQ/9FXYzgNUO6MJ9crVH8W1p5U8ecnK6yamVOBmKib+9Lu4dtldIzqJBObR8Ctvq+our0VTXbhuCU0AvghJO+Rbjij+sDK3VNL93ojD2Xcd3IHeZhz4U+K2VPIRKHGPTC2mfc9pRZ076hoRqeAPWYrtU3gtNk7ZedMX75+yEuUWax5wS0gIjHnbu/R8fLTadNPbdyRaVGYembtuF8P2hMorCrjAED07UNivnaJaNb6Dj72Bticwqs2gIStoed3S8luzUJIgOOdS9J4Dq3ybkSIWg3+GJQhLyKIhZpgbRQoMbYLQ/z7obT1xX0avXnjobb5rW445R0LXLXj4MokgGo1p5cA+AhP5JEk49w2uutzD3tPZB58edH4USOk4q/9MXNdXzvU5RxOA6ScGeh1JNa+62/N4HA8UtYEudTFOcHkt3xq6h5VKc5k7JbvkCso29wqC8AR5ctBzuLspnzxhPrjm/BcfB/FMnwJE2MbtBxa8R1Z5Hd1DEfsEV57mF7dtV0SIImV+l/4bK/1xz/G9v31u/5DrfkQR6DjAvX8w4zUZE5gHKGsZoeZEFuUc5YQuwdeWEg20Qah4v6rbDfJUzXj9vbyFLMdIomPkuWkNSDzg6oMWCmeQAeL3+ykjsVdoBoJCvHvFEpw4dlrdlnQK1VXsWSX7TTDkRuYKQUKbKIBOWOCXScgFDQwu+f0mUkmFX1MrAojYgfWyZ1hlUDGcsE4pvTWJKP1lHykRM/qPUVh/YXfayh5upYh2MXT44yqMHhyNJE/KlCTp9KXsdflm3kaCAhqEC746IbvBpPjz3DTA7nwLUhDB3K2Zi9t/kIhMQCbV+wI2FgA",
+        "password": "wcFMA/xDdHCJBTolAQ/6A4VHieAREvIZ35w9tpdLuvCysq3951xcwBD+o5A6QNYz9K5J0X4NDp2NF5FwEeEBgh3CGF7t/jXHdvvFUSo1wnTT0N+XoU4fXta1px9rkZssPWaMmqbmQ+KWXrEo7SMYK4nXBdExtIZ/j8XvjvTZ1apAh+ySW41eAKXbeQC+5I2rjDJegH6hI7kGkQDzmSAoaDX/Nw8seccozzOj9GEGxPbtF1UYJIfG0jZObf0GowXXCtCOEd5QcQQnzILIaiN0tgZgXrQKFehMTboi8rgYLtRI3LIObUjxl7O59q7ZBCkUuyt9nYF14i9PD8IltVdPsTrGpyK/yQMFrjHWkIPGFHZC9dLyjQlhTjMFBYdye9KGfoZHnKR5pXZw7JvCho/PaP3S8y4LXPJa7YHty0wEcP1eWT0b1hapHnsyDEJ22xyCz0hVFeUnXRPj3zSqBzn4+wVPZmxcCwuLNmu28JJ76SNYAf/4hTjlc2+8WasB/C8rNA+ASf+C6SsMMp677JffWXJtfJHgtPGV+gTCBITG7D8pkCVyIdoiGDv503QDiw59YdocEHkIaRw6EzSZ5XFEHz0mbnTZ7HgRYPklsQzVvetEOmctFdZgYZZ1hjVOkWIjiuSR+hDc3IT/TdXEohZxizAZAEmmsli0Q70m2EWJo1tUqxS9soQGKGQc/crIdpHSdgFfBI3gyKZP4ehv1WzYqrWlg1syDgbNllgEJIIBxv+ZI+QMJUF8SdtleMkxE6PYvc1bzpj6nTrM1oahiK8BUKS+cTpXQr1+LneL1mQ/4rSqNQO5ooBweej3Ql0cDNzjahfYc/1AwctQOdjZRpmGUs+RaMezgF8"
       }
     }
   ],

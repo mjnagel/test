@@ -1,105 +1,64 @@
-# Unicorn Delivery Service - Core (UDS Core)
+# UDS Common
 
-UDS Core establishes a secure baseline for cloud-native systems and ships with compliance documentation and first-class support for airgap/egress-limited systems. Based on the work of [Platform One](https://p1.dso.mil), UDS Core expands on the security posture of [Big Bang](https://repo1.dso.mil/big-bang/bigbang) while providing advanced automation with the [UDS Operator](./src/pepr/operator/README.md) and [UDS Policy Engine](./src/pepr/policies/README.md). UDS Core is a collection of several individual applications combined into a single [Zarf](https://zarf.dev) package and we recommend using [UDS CLI](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install) to deploy it as a [UDS Bundle](#using-uds-core-in-production).
+This repository contains common configuration and tasks used in UDS Packages for management, setup, creation, deployment, and publishing of packages and bundles.
 
-#### tl;dr - [try it now](#quickstart)
+## Task Usage
 
-#### Core Applications
+The tasks are designed to be consumed via remote task includes and GitHub Actions (WIP). It is typically easiest to include tasks in a single root level `tasks.yaml`. Includes should follow the standard remote include pattern documented by UDS CLI:
 
-- [Grafana](https://grafana.com/oss/grafana/) - Monitoring
-- [Istio](https://istio.io/) - Service Mesh
-- [Loki](https://grafana.com/oss/loki/) - Log Aggregation
-- [Metrics Server](https://github.com/kubernetes-sigs/metrics-server) - Metrics
-- [Neuvector](https://open-docs.neuvector.com/) - Container Security
-- [Pepr](https://pepr.dev) - UDS policy engine & operator
-- [Prometheus Stack](https://github.com/prometheus-operator/kube-prometheus) - Monitoring
-- [Promtail](https://grafana.com/docs/loki/latest/send-data/promtail/) - Log Aggregation
-
-#### Future Applications
-
-- [Authservice](https://github.com/istio-ecosystem/authservice) - Authorization
-- [KeyCloak](https://www.keycloak.org/) - Identity & Access Management
-- [Kiali](https://kiali.io/) - Service Mesh Observability
-- [Tempo](https://grafana.com/docs/tempo/latest/getting-started/) - Tracing
-- [Velero](https://velero.io/) - Backup & Restore
-
----
-
-### Prerequisites
-
-- [K3D](https://k3d.io/) for dev & test environments or any [CNCF Certified Kubernetes Cluster](https://www.cncf.io/training/certification/software-conformance/#logos) for production environments.
-<!-- renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver -->
-- [UDS CLI](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install) v0.8.1 or later
-
----
-
-### Using UDS Core in Production
-
-While the UDS Bundles published by this repo can be use for dev and test environments and include a K3d cluster, UDS Core also publishes a UDS Package that is intended to be used in your own UDS Bundle. You can use the [k3d-core-demo bundle](./bundles/k3d-standard/README.md) as an example.
-
----
-
-### Quickstart, Dev & Test Environments
-
-UDS Core publishes bundles you can use for trying out UDS Core or for UDS Package development where you only need part of UDS Core. These bundles leverage [UDS K3d](https://github.com/defenseunicorns/uds-k3d) to create a local k3d cluster with tools installed to emulate a cloud environment.
-
-> [!NOTE]
-> These UDS Bundles are intended for dev and test environments and should not be used for production. They also serve as examples to create custom bundles.
-
-#### Quickstart
-
-If you want to try out UDS Core, you can use the [k3d-core-demo bundle](./bundles/k3d-standard/README.md) to create a local k3d cluster with UDS Core installed by running the following command:
-
-<!-- x-release-please-start-version -->
-
-```bash
-uds deploy k3d-core-demo:0.12.0
+```yaml
+includes:
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/$TAG/tasks/deploy.yaml
 ```
 
-<!-- x-release-please-end -->
+Pinning to a specific tag of a task (rather than `main`) with renovate watching for updates is recommended since tasks do rely on dependencies like command syntax for `zarf` and `uds` as well as the published versions of `uds-core`.
 
-#### UDS Package Development
+## Supported Tool Versions
 
-In addition to the demo bundle, a [k3d-core-istio-dev bundle](./bundles/k3d-istio/README.md) also exists to work with UDS Core with only Istio & Pepr installed. Run the command below to use it:
+- UDS CLI: 0.9.0
+- UDS Core: 0.12.0
 
-<!-- x-release-please-start-version -->
+NOTE: Zarf is not required for tasks in this repo, the vendored zarf (`uds zarf`) included with UDS CLI is used instead to prevent version mismatches.
 
-```bash
-uds deploy k3d-core-istio-dev:0.12.0
-```
+## Task Files
 
-<!-- x-release-please-end -->
+There are multiple task files available in this repository with different objectives and required variables.
 
-#### Developing UDS Core
+### setup.yaml
 
-UDS Core development leverages the `uds zarf dev deploy` command. For convenience, a UDS Task is provided to setup the environment. You'll need to have [NodeJS](https://nodejs.org/en/download/) 20 or later installed to continue. Here's an example of a flow developing the [metrics-server package](./src/metrics-server/README.md):
+This task file includes two tasks:
 
-```bash
-# Create the dev environment
-uds run dev
+- `k3d-test-cluster` sets up a k3d cluster running the `uds-core-istio-dev` package. This provides a baseline cluster with Istio and the UDS Core Pepr capabilities necessary to test against.
+- `registry-login` performs a registry login and retry a max of 10 times at a desired retry interval (in seconds). It reads in variables for the task to use for the registry login parameters.  The variable inputs are:
+  - `REGISTRY`: the target registry
+  - `REGISTRY_USERNAME`: the username for the registry
+  - `REGISTRY_PASSWORD`: the password for the registry
+  - `REGISTRY_RETRY_INTERVAL`: the number in seconds to wait between retries
 
-# If developing the Pepr module:
-npx pepr dev
+### create.yaml
 
-# If not developing the Pepr module (can be run multiple times):
-npx pepr deploy
+This task file includes two tasks:
 
-# Deploy the package (can be run multiple times)
-uds run dev-deploy --set PKG=metrics-server
-```
+- `package`: creates a zarf package located at the base of the repository. It has a required variable of `FLAVOR` which defaults to upstream and an optional variable `ZARF_ARCHITECTURE` to override the default architecture used for creation (useful in publishing workflows).
+- `test-bundle`: creates a test bundle located at the path `bundle/`. It has an optional variable for `UDS_ARCH` which can be used to override the default architecture used for creation (useful in publishing workflows). Note that this task does not create any pre-requisite zarf packages so those tasks must be run first.
 
-#### Testing UDS Core
+### deploy.yaml
 
-You can perform a complete test of UDS Core by running the following command:
+This task file includes two tasks:
 
-```bash
-uds run test-uds-core
-```
+- `package`: deploys a zarf package located at the base of the repository (using the regex match `zarf-package-*-${UDS_ARCH}-*.tar.zst`).
+- `test-bundle`: deploys a test bundle located at the path `bundle/` (using the regex match `bundle/uds-bundle-*-${UDS_ARCH}-*.tar.zst`) and the config file located at `bundle/uds-config.yaml`.
 
-This will create a local k3d cluster, install UDS Core, and run a series of tests against it, the same tests that are run in CI. If you want to run the tests against a specific package, you can use the `PKG` env variable. The following example runs the tests against the metrics-server package:
+### publish.yaml
 
-```bash
-UDS_PKG=metrics-server uds run test-single-package
-```
+This task file includes a single task `package` which publishes zarf package(s) located at the base of the repository. Inputs for this task:
 
-Note you can specify the `--set FLAVOR=registry1` flag to test using Iron Bank images instead of the upstream images.
+- `FLAVOR`: the flavor of the zarf package to publish, defaults to `upstream`.
+- `TARGET_REPO`: the target OCI repository to publish the zarf package to, defaults to `oci://ghcr.io/defenseunicorns/packages/uds`.
+- `VERSION`: the version of the zarf package to publish with no default. This should typically be version controlled by something like release-please.
+
+Note that this task will publish both `arm64` and `amd64` architectures, with the exception of the `registry1` flavor which will skip the `arm64` publish.
+
+## Configuration Usage
+
+Common configuration used between repositories is located in the `config` directory and is imported via specific tool mechanisms (like Renovate's `extends` key).

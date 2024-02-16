@@ -1,7 +1,0 @@
-sidecar:
-  dashboards:
-    enabled: true
-    label: grafana_dashboard
-  datasources:
-    enabled: true
-    label: grafana_datasource

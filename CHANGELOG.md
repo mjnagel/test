@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.2](https://github.com/mjnagel/test/compare/v0.13.1...v0.13.2) (2024-02-29)
+
+
+### Miscellaneous
+
+* rebase ([1324480](https://github.com/mjnagel/test/commit/1324480def9535f6ff30824d56efe94b25fe92f3))
+* rook-ceph renovate test ([188a8c7](https://github.com/mjnagel/test/commit/188a8c7f4dd297f02cd1528319ec684d2687bcd5))
+
 ## [0.13.1](https://github.com/defenseunicorns/uds-core/compare/v0.13.0...v0.13.1) (2024-02-21)
 
 

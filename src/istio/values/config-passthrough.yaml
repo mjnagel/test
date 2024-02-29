@@ -1,0 +1,5 @@
+name: passthrough
+
+tls:
+  - name: passthrough
+    mode: PASSTHROUGH

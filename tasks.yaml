@@ -1,45 +1,79 @@
+variables:
+  - name: FLAVOR
+    default: upstream
+
+  - name: PKG
+
 includes:
-  - setup: ./tasks/setup.yaml
   - create: ./tasks/create.yaml
+  - setup: ./tasks/setup.yaml
   - deploy: ./tasks/deploy.yaml
+  - test: ./tasks/test.yaml
+  - lint: ./tasks/lint.yaml
+  - common-setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.2.0/tasks/setup.yaml
 
 tasks:
+  - name: dev-setup
+    actions:
+      - description: "Create the dev cluster"
+        task: setup:create-k3d-cluster
+
+      - description: "Deploy the Istio source package with Zarf Dev"
+        cmd: "uds zarf dev deploy src/istio --flavor ${FLAVOR}"
+
+      - description: "Dev instructions"
+        cmd: |
+          echo "Next steps:"
+          echo "  - To test & develop the Pepr module, run 'npx pepr dev' from a Javascript debug terminal"
+          echo "  - Otherwise run 'npx pepr deploy' to deploy the Pepr module to the cluster"
+          echo "  - Additional source packages can be deployed with 'zarf dev deploy src/<package>'"
+
+  - name: dev-deploy
+    actions:
+      - description: "Deploy the given source package with Zarf Dev"
+        cmd: "uds zarf dev deploy src/${PKG} --flavor ${FLAVOR}"
+
   - name: setup-cluster
     actions:
       - task: setup:k3d-test-cluster
 
   - name: registry-login
     actions:
-      - task: setup:registry-login
+      - task: common-setup:registry-login
         with:
           registry: ${REGISTRY}
           registryUsername: ${REGISTRY_USERNAME}
           registryPassword: ${REGISTRY_PASSWORD}
           registryRetryInterval: ${REGISTRY_RETRY_INTERVAL}
 
-  - name: create-package
+  - name: create-single-package
     actions:
-      - task: create:package
+      - task: create:single-package
 
-  - name: create-test-bundle
+  - name: create-standard-package
     actions:
-      - task: create:test-bundle
+      - task: create:standard-package
 
-  - name: deploy-package
+  - name: deploy-single-package
     actions:
-      - task: deploy:package
+      - task: deploy:single-package
 
-  - name: deploy-test-bundle
+  - name: test-single-package
     actions:
-      - task: deploy:test-bundle
+      - task: test:single-package
 
-  # Validate all tasks performed as expected
-  - name: validate-tasks
-    description: Validate cluster is deployed with podinfo
+  - name: test-uds-core
     actions:
-      - wait:
-          cluster:
-            kind: Deployment
-            name: podinfo
-            namespace: podinfo
-            condition: available
+      - task: test:uds-core
+
+  - name: test-uds-core-upgrade
+    actions:
+      - task: test:uds-core-upgrade
+
+  - name: lint-check
+    actions:
+      - task: lint:check
+
+  - name: lint-fix
+    actions:
+      - task: lint:fix

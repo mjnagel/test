@@ -1,37 +1,14 @@
-variables:
-  - name: REGISTRY1_TEST_IMAGE
-    default: "registry1.dso.mil/ironbank/opensource/defenseunicorns/zarf/zarf-agent"
-
 tasks:
+  - name: create-k3d-cluster
+    actions:
+      - description: "Create the K3d cluster"
+        # renovate: datasource=github-tags depName=defenseunicorns/uds-k3d versioning=semver
+        cmd: "uds zarf package deploy oci://defenseunicorns/uds-k3d:0.3.1 --confirm"
+
   - name: k3d-test-cluster
     actions:
-      - description: Create k3d cluster with UDS Core Istio
-        # renovate: datasource=github-tags depName=defenseunicorns/uds-core versioning=semver
-        cmd: uds deploy oci://defenseunicorns/uds/bundles/k3d-core-istio-dev:0.12.0 --confirm --no-progress
+      - task: create-k3d-cluster
 
-  - name: registry-login
-    inputs:
-      registry:
-        description: "Registry"
-      registryUsername:
-        description: "Registry username"
-      registryPassword:
-        description: "Registry password"
-      registryRetryInterval:
-        default: "5"
-        description: "Registry retry interval"
-    actions:
-      - cmd: |
-          echo ${{ .inputs.registryPassword }} | \
-            uds zarf tools registry login \
-            --username ${{ .inputs.registryUsername }} \
-            --password-stdin ${{ .inputs.registry }} \
-            >/dev/null
-        description: "Authenticate to the registry"
-      - cmd: |
-          if [ ${{ .inputs.registry }} = "registry1.dso.mil" ]; then
-            uds zarf tools registry digest "${REGISTRY1_TEST_IMAGE}" >/dev/null || \
-            (sleep ${{ .inputs.registryRetryInterval }}; exit 1)
-          fi 
-        description: "Validate registry connection"
-        maxRetries: 10
+      - description: "Initialize the cluster with Zarf"
+        # renovate: datasource=github-tags depName=defenseunicorns/init versioning=semver
+        cmd: "uds zarf package deploy oci://defenseunicorns/init:v0.32.1 --confirm"

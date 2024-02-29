@@ -9,8 +9,16 @@
         { "type": "fix", "section": "Bug Fixes", "hidden": false },
         { "type": "chore", "section": "Miscellaneous", "hidden": false }
       ],
-      "versioning": "default"
+      "versioning": "default",
+      "extra-files": [
+        "README.md",
+        "packages/istio/zarf.yaml",
+        "packages/standard/zarf.yaml",
+        "bundles/k3d-istio/uds-bundle.yaml",
+        "bundles/k3d-standard/uds-bundle.yaml",
+        "tasks/deploy.yaml",
+        "tasks/publish.yaml"
+      ]
     }
-  },
-  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
+  }
 }

@@ -14,18 +14,28 @@
   "rebaseWhen": "conflicted",
   "commitBodyTable": true,
   "separateMajorMinor": false,
-  "suppressNotifications": ["prIgnoreNotification"],
+  "suppressNotifications": [
+    "prIgnoreNotification"
+  ],
   "helm-values": {
-    "fileMatch": ["\\.*\\.ya?ml$"],
-    "ignorePaths": ["src/neuvector/values"]
+    "fileMatch": [
+      "\\.*\\.ya?ml$"
+    ],
+    "ignorePaths": [
+      "src/neuvector/values"
+    ]
   },
   "kubernetes": {
-    "fileMatch": ["\\.*\\.ya?ml$"]
+    "fileMatch": [
+      "\\.*\\.ya?ml$"
+    ]
   },
-  "regexManagers":[
+  "regexManagers": [
     {
       "depNameTemplate": "defenseunicorns/uds-k3d",
-      "fileMatch": ["\\.*\\.ya?ml$"],
+      "fileMatch": [
+        "\\.*\\.ya?ml$"
+      ],
       "matchStrings": [
         "# renovate: datasource=github-tags depName=uds-k3d versioning=(?<versioning>.*?)\n.*?(ref:) (?<currentValue>.*)"
       ],
@@ -34,7 +44,9 @@
     },
     {
       "depNameTemplate": "defenseunicorns/uds-identity-config",
-      "fileMatch": ["\\.*\\.ya?ml$"],
+      "fileMatch": [
+        "\\.*\\.ya?ml$"
+      ],
       "matchStrings": [
         "# renovate: datasource=github-tags depName=defenseunicorns/uds-identity-config versioning=(?<versioning>.*?)\n.*?(identity-config:)(?<currentValue>.*)"
       ],
@@ -42,7 +54,9 @@
       "extractVersionTemplate": "^v(?<version>.*)$"
     },
     {
-      "fileMatch": ["\\.*\\.ya?ml$"],
+      "fileMatch": [
+        "\\.*\\.ya?ml$"
+      ],
       "matchStrings": [
         "# renovate: datasource=github-tags depName=(?<depName>[^ ]+) versioning=(?<versioning>.*?)( extractVersion=(?<extractVersion>.*?))?\n.*?(version:|ref:) (?<currentValue>.*)"
       ],
@@ -50,16 +64,20 @@
       "datasourceTemplate": "github-tags"
     },
     {
-      "fileMatch": [".*(\\.ya?ml|\\.json)$"],
+      "fileMatch": [
+        ".*(\\.ya?ml|\\.json)$"
+      ],
       "matchStrings": [
-          "https:\\/\\/raw\\.githubusercontent\\.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/(?<currentValue>[^\\/]+)"
+        "https:\\/\\/raw\\.githubusercontent\\.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/(?<currentValue>[^\\/]+)"
       ],
       "versioningTemplate": "semver-coerced",
       "datasourceTemplate": "github-tags"
     },
     {
       "depNameTemplate": "defenseunicorns/uds-cli",
-      "fileMatch": ["\\.*\\.ya?ml$"],
+      "fileMatch": [
+        "\\.*\\.ya?ml$"
+      ],
       "matchStrings": [
         "# renovate: datasource=github-tags depName=(?<depName>[^ ]+) versioning=(?<versioning>[^\n]+)\n.*?uds@(?<currentValue>.*)"
       ],
@@ -67,29 +85,39 @@
       "extractVersionTemplate": "^v(?<version>.*)$"
     },
     {
-      "fileMatch": ["^tasks.ya?ml$", "^tasks/.*\\.ya?ml$", "^\\.vscode/settings\\.json$"],
+      "fileMatch": [
+        "^tasks.ya?ml$",
+        "^tasks/.*\\.ya?ml$",
+        "^\\.vscode/settings\\.json$"
+      ],
       "matchStrings": [
-         "https:\\/\\/raw\\.githubusercontent\\.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/(?<currentValue>[^\\/]+)"
+        "https:\\/\\/raw\\.githubusercontent\\.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/(?<currentValue>[^\\/]+)"
       ],
       "versioningTemplate": "semver-coerced",
       "datasourceTemplate": "github-tags"
     },
     {
-      "fileMatch": ["\\.*\\.ya?ml$"],
+      "fileMatch": [
+        "\\.*\\.ya?ml$"
+      ],
       "matchStrings": [
         "- [\"]?(?<depName>[^\"\n]*):(?<currentValue>[^\"\n]*)[\"]?"
       ],
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["\\.*\\.ya?ml$"],
+      "fileMatch": [
+        "\\.*\\.ya?ml$"
+      ],
       "matchStrings": [
-        "# renovate: datasource=docker( versioning=(?<versioning>.*?))?\n\\s*-\\s+(?<depName>[^:]+):(?<currentValue>.*)"
+        "# renovate: datasource=docker( versioning=(?<versioning>.*?))?\n\\s+.+:(?<depName>[^:]+):(?<currentValue>.*)"
       ],
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["\\.*\\.ya?ml$"],
+      "fileMatch": [
+        "\\.*\\.ya?ml$"
+      ],
       "matchStrings": [
         "# renovate: image=(?<depName>.*?)\\s*image:\\s.*:(?<currentValue>.*)",
         "# renovate: image=(?<depName>.*?)\\s*tag:\\s*(?<currentValue>.*)"
@@ -97,7 +125,9 @@
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["\\.*\\.ya?ml$"],
+      "fileMatch": [
+        "\\.*\\.ya?ml$"
+      ],
       "matchStrings": [
         "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
         "- name: (?<depName>.*?)\n *url: (?<registryUrl>.*?)\n *version: (?<currentValue>.*)\n",
@@ -108,7 +138,9 @@
       "datasourceTemplate": "helm"
     },
     {
-      "fileMatch": ["\\.*\\.ya?ml$"],
+      "fileMatch": [
+        "\\.*\\.ya?ml$"
+      ],
       "matchStrings": [
         "# renovate: datasource=gitlab-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( registryUrl=(?<registryUrl>.*?))?\\s.*?_version:\\s*(?<currentValue>[.*])\\s",
         "# renovate: datasource=gitlab-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( registryUrl=(?<registryUrl>.*?))?\\s.*?_version:\\s*['\"](?<currentValue>.*)['\"]\\s"
@@ -117,7 +149,9 @@
       "datasourceTemplate": "gitlab-tags"
     },
     {
-      "fileMatch": ["^src/neuvector/values/upstream-values\\.yaml$"],
+      "fileMatch": [
+        "^src/neuvector/values/upstream-values\\.yaml$"
+      ],
       "matchStrings": [
         "registry: docker.io\\s+tag:\\s+(?<currentValue>.+)"
       ],
@@ -125,7 +159,9 @@
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["^src/neuvector/values/registry1-values\\.yaml$"],
+      "fileMatch": [
+        "^src/neuvector/values/registry1-values\\.yaml$"
+      ],
       "matchStrings": [
         "registry: registry1.dso.mil\\s+tag:\\s+(?<currentValue>.+)"
       ],
@@ -133,7 +169,9 @@
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["^src/neuvector/values/.*\\.yaml$"],
+      "fileMatch": [
+        "^src/neuvector/values/.*\\.yaml$"
+      ],
       "matchStrings": [
         "registry:\\s+(?<registryUrl>.*?)\n(.|\\s)*repository:\\s+(?<depName>.*?)\\s+tag:\\s+(?<currentValue>.+)"
       ],
@@ -141,7 +179,9 @@
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["^\\.github/workflows/commitlint\\.yaml$"],
+      "fileMatch": [
+        "^\\.github/workflows/commitlint\\.yaml$"
+      ],
       "matchStrings": [
         "npm install --save-dev (?<depName>@?.*?)@(?<currentValue>.+)"
       ],
@@ -161,84 +201,120 @@
   ],
   "packageRules": [
     {
-      "matchFileNames": ["src/istio/**"],
+      "matchFileNames": [
+        "src/istio/**"
+      ],
       "groupName": "istio",
       "commitMessageTopic": "istio"
     },
     {
-      "matchFileNames": ["src/promtail/**"],
+      "matchFileNames": [
+        "src/promtail/**"
+      ],
       "groupName": "promtail",
       "commitMessageTopic": "promtail"
     },
     {
-      "matchFileNames": ["src/velero/**"],
+      "matchFileNames": [
+        "src/velero/**"
+      ],
       "groupName": "velero",
       "commitMessageTopic": "velero"
     },
     {
-      "matchFileNames": ["src/tempo/**"],
+      "matchFileNames": [
+        "src/tempo/**"
+      ],
       "groupName": "tempo",
       "commitMessageTopic": "tempo"
     },
     {
-      "matchFileNames": ["src/prometheus-stack/**"],
+      "matchFileNames": [
+        "src/prometheus-stack/**"
+      ],
       "groupName": "prometheus-stack",
       "commitMessageTopic": "prometheus-stack"
     },
     {
-      "matchFileNames": ["src/neuvector/**"],
+      "matchFileNames": [
+        "src/neuvector/**"
+      ],
       "groupName": "neuvector",
       "commitMessageTopic": "neuvector"
     },
     {
-      "matchFileNames": ["src/metrics-server/**"],
+      "matchFileNames": [
+        "src/metrics-server/**"
+      ],
       "groupName": "metrics-server",
       "commitMessageTopic": "metrics-server"
     },
     {
-      "matchFileNames": ["src/loki/**"],
+      "matchFileNames": [
+        "src/loki/**"
+      ],
       "groupName": "loki",
       "commitMessageTopic": "loki"
     },
     {
-      "matchFileNames": ["src/kiali/**"],
+      "matchFileNames": [
+        "src/kiali/**"
+      ],
       "groupName": "kiali",
       "commitMessageTopic": "kiali"
     },
     {
-      "matchFileNames": ["src/keycloak/**"],
+      "matchFileNames": [
+        "src/keycloak/**"
+      ],
       "groupName": "keycloak",
       "commitMessageTopic": "keycloak"
     },
     {
-      "matchFileNames": ["src/grafana/**"],
+      "matchFileNames": [
+        "src/grafana/**"
+      ],
       "groupName": "grafana",
       "commitMessageTopic": "grafana"
     },
     {
-      "matchPackageNames": ["defenseunicorns/zarf"],
+      "matchPackageNames": [
+        "defenseunicorns/zarf"
+      ],
       "groupName": "zarf",
       "commitMessageTopic": "zarf"
     },
     {
-      "matchPackageNames": ["defenseunicorns/uds-cli"],
+      "matchPackageNames": [
+        "defenseunicorns/uds-cli"
+      ],
       "groupName": "uds",
       "commitMessageTopic": "uds"
     },
     {
-      "matchPackageNames": ["defenseunicorns/uds-k3d"],
+      "matchPackageNames": [
+        "defenseunicorns/uds-k3d"
+      ],
       "groupName": "uds-k3d",
       "commitMessageTopic": "uds-k3d"
     },
-    { 
-      "matchFileNames": [".github/**"],
-      "excludePackageNames": ["defenseunicorns/zarf","defenseunicorns/uds-cli"],
+    {
+      "matchFileNames": [
+        ".github/**"
+      ],
+      "excludePackageNames": [
+        "defenseunicorns/zarf",
+        "defenseunicorns/uds-cli"
+      ],
       "groupName": "githubactions",
       "commitMessageTopic": "githubactions",
       "pinDigests": true
     },
     {
-      "matchFileNames": ["package.json", "package-lock.json"],
+      "matchFileNames": [
+        "package.json",
+        "package-lock.json"
+      ],
       "groupName": "pepr",
       "commitMessageTopic": "pepr"
     }

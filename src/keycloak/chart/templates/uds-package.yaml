@@ -14,7 +14,7 @@ spec:
         remoteSelector:
           app: pepr-uds-core-watcher
         port: 8080
-        
+
       # Temp workaround for any cluster pod
       # @todo: remove this once cluster pods is a remote generated target
       - description: "Keycloak backchannel access"
@@ -23,6 +23,24 @@ spec:
           app.kubernetes.io/name: keycloak
         remoteGenerate: Anywhere
         port: 8080
+
+      - description: "OCSP Lookup"
+        direction: Egress
+        selector:
+          app.kubernetes.io/name: keycloak
+        ports:
+          - 443
+          - 80
+        remoteGenerate: Anywhere
+
+      {{- if not .Values.devMode }}
+      - description: "PostgresQL Database access"
+        direction: Egress
+        selector:
+          app.kubernetes.io/name: keycloak
+        port: {{ .Values.postgresql.port }}
+        remoteGenerate: Anywhere
+      {{- end }}
 
     expose:
       - description: "remove private paths from public gateway"
@@ -82,3 +100,45 @@ spec:
                 - istio-mtls-client-certificate
               add:
                 istio-mtls-client-certificate: "%DOWNSTREAM_PEER_CERT%"
+
+      - description: "emulate gitlab authorize endpoint"
+        service: keycloak-http
+        selector:
+          app.kubernetes.io/name: keycloak
+        host: sso
+        port: 8080
+        advancedHTTP:
+          match:
+            - name: gitlab-authorize
+              uri:
+                prefix: /oauth/authorize
+          rewrite:
+            uri: "/realms/{{ .Values.realm }}/protocol/openid-connect/auth"
+
+      - description: "emulate gitlab user endpoint"
+        service: keycloak-http
+        selector:
+          app.kubernetes.io/name: keycloak
+        host: sso
+        port: 8080
+        advancedHTTP:
+          match:
+            - name: gitlab-user
+              uri:
+                prefix: /api/v4/user
+          rewrite:
+            uri: "/realms/{{ .Values.realm }}/protocol/openid-connect/userinfo"
+
+      - description: "emulate gitlab token endpoint"
+        service: keycloak-http
+        selector:
+          app.kubernetes.io/name: keycloak
+        host: sso
+        port: 8080
+        advancedHTTP:
+          match:
+            - name: gitlab-token
+              uri:
+                prefix: /oauth/token
+          rewrite:
+            uri: "/realms/{{ .Values.realm }}/protocol/openid-connect/token"

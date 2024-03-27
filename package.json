@@ -16,11 +16,7 @@
     "name": "UDS Core",
     "uuid": "uds-core",
     "onError": "reject",
-    "customLabels": {
-      "namespace": {
-        "istio-injection": "enabled"
-      }
-    },
+    "logLevel": "debug",
     "alwaysIgnore": {
       "namespaces": [
         "uds-dev-stack",
@@ -30,6 +26,7 @@
     },
     "env": {
       "UDS_DOMAIN": "###ZARF_VAR_DOMAIN###",
+      "UDS_ALLOW_ALL_NS_EXEMPTIONS": "###ZARF_VAR_ALLOW_ALL_NS_EXEMPTIONS###",
       "UDS_SINGLE_TEST": "###ZARF_VAR_UDS_SINGLE_TEST###"
     }
   },
@@ -37,7 +34,7 @@
     "k3d-setup": "k3d cluster delete pepr-dev && k3d cluster create pepr-dev --k3s-arg '--debug@server:0'"
   },
   "dependencies": {
-    "pepr": "0.27.0"
+    "pepr": "0.28.6"
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",

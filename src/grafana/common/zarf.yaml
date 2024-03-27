@@ -14,17 +14,18 @@ components:
         localPath: ../chart
       - name: grafana
         url: https://grafana.github.io/helm-charts/
-        version: 7.3.0
+        version: 7.3.6
         namespace: grafana
         valuesFiles:
           - ../values/values.yaml
     actions:
       onDeploy:
         after:
-          - description: "Wait for UDS Operator sync"
+          - description: Validate Grafana Package
+            maxTotalSeconds: 300
             wait:
               cluster:
-                kind: Package
+                kind: Packages
                 name: grafana
                 namespace: grafana
                 condition: "'{.status.phase}'=Ready"

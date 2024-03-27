@@ -6,22 +6,22 @@ UDS Core establishes a secure baseline for cloud-native systems and ships with c
 
 #### Core Applications
 
+- [Authservice](https://github.com/istio-ecosystem/authservice) - Authorization
 - [Grafana](https://grafana.com/oss/grafana/) - Monitoring
 - [Istio](https://istio.io/) - Service Mesh
+- [KeyCloak](https://www.keycloak.org/) - Identity & Access Management
 - [Loki](https://grafana.com/oss/loki/) - Log Aggregation
 - [Metrics Server](https://github.com/kubernetes-sigs/metrics-server) - Metrics
 - [Neuvector](https://open-docs.neuvector.com/) - Container Security
 - [Pepr](https://pepr.dev) - UDS policy engine & operator
 - [Prometheus Stack](https://github.com/prometheus-operator/kube-prometheus) - Monitoring
 - [Promtail](https://grafana.com/docs/loki/latest/send-data/promtail/) - Log Aggregation
+- [Velero](https://velero.io/) - Backup & Restore
 
 #### Future Applications
 
-- [Authservice](https://github.com/istio-ecosystem/authservice) - Authorization
-- [KeyCloak](https://www.keycloak.org/) - Identity & Access Management
 - [Kiali](https://kiali.io/) - Service Mesh Observability
 - [Tempo](https://grafana.com/docs/tempo/latest/getting-started/) - Tracing
-- [Velero](https://velero.io/) - Backup & Restore
 
 ---
 
@@ -35,7 +35,7 @@ UDS Core establishes a secure baseline for cloud-native systems and ships with c
 
 ### Using UDS Core in Production
 
-While the UDS Bundles published by this repo can be use for dev and test environments and include a K3d cluster, UDS Core also publishes a UDS Package that is intended to be used in your own UDS Bundle. You can use the [k3d-core-demo bundle](./bundles/k3d-standard/README.md) as an example.
+While the UDS Bundles published by this repo can be used for dev and test environments and include a K3d cluster, UDS Core also publishes a UDS Package that is intended to be used in your own UDS Bundle. You can use the [k3d-core-demo bundle](./bundles/k3d-standard/README.md) as an example.
 
 ---
 
@@ -53,22 +53,25 @@ If you want to try out UDS Core, you can use the [k3d-core-demo bundle](./bundle
 <!-- x-release-please-start-version -->
 
 ```bash
-uds deploy k3d-core-demo:0.13.1
+uds deploy k3d-core-demo:0.17.0
 ```
 
 <!-- x-release-please-end -->
 
 #### UDS Package Development
 
-In addition to the demo bundle, a [k3d-core-istio-dev bundle](./bundles/k3d-istio/README.md) also exists to work with UDS Core with only Istio & Pepr installed. Run the command below to use it:
+In addition to the demo bundle, a [k3d-slim-dev bundle](./bundles/k3d-slim-dev/README.md) also exists to work with UDS Core with only Istio, Keycloak & Pepr installed. Run the command below to use it.
+
+Deploy Istio, Keycloak and Pepr:
 
 <!-- x-release-please-start-version -->
 
 ```bash
-uds deploy k3d-core-istio-dev:0.13.1
+uds deploy k3d-core-slim-dev:0.17.0
 ```
 
 <!-- x-release-please-end -->
+
 
 #### Developing UDS Core
 

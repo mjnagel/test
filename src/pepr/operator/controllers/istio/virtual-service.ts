@@ -1,8 +1,8 @@
 import { K8s, Log } from "pepr";
 
 import { UDSConfig } from "../../../config";
-import { Expose, Gateway, Istio, UDSPackage, getOwnerRef } from "../../crd";
-import { sanitizeResourceName } from "../utils";
+import { Expose, Gateway, Istio, UDSPackage } from "../../crd";
+import { getOwnerRef, sanitizeResourceName } from "../utils";
 
 /**
  * Creates a VirtualService for each exposed service in the package
@@ -107,8 +107,8 @@ export async function virtualService(pkg: UDSPackage, namespace: string) {
     await K8s(Istio.VirtualService).Delete(vs);
   }
 
-  // Return the list of generated VirtualServices
-  return payloads;
+  // Return the list of unique hostnames
+  return [...new Set(payloads.map(v => v.spec!.hosts!).flat())];
 }
 
 export function generateVSName(pkg: UDSPackage, expose: Expose) {

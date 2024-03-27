@@ -1,12 +1,25 @@
+// Common imports
 import { a } from "pepr";
-
 import { When } from "./common";
+
+// Controller imports
+import { removeExemptions } from "./controllers/exemptions/exemptions";
 import { cleanupNamespace } from "./controllers/istio/injection";
 import { purgeSSOClients } from "./controllers/keycloak/client-sync";
-import { initAPIServerCIDR, updateAPIServerCIDR } from "./controllers/network/generators/kubeAPI";
-import { UDSPackage } from "./crd";
-import { validator } from "./crd/validator";
-import { reconciler } from "./reconciler";
+import {
+  initAPIServerCIDR,
+  updateAPIServerCIDRFromEndpointSlice,
+  updateAPIServerCIDRFromService,
+} from "./controllers/network/generators/kubeAPI";
+
+// CRD imports
+import { UDSExemption, UDSPackage } from "./crd";
+import { exemptValidator } from "./crd/validators/exempt-validator";
+import { validator } from "./crd/validators/package-validator";
+
+// Reconciler imports
+import { exemptReconciler } from "./reconcilers/exempt-reconciler";
+import { packageReconciler } from "./reconcilers/package-reconciler";
 
 // Export the operator capability for registration in the root pepr.ts
 export { operator } from "./common";
@@ -20,7 +33,14 @@ When(a.EndpointSlice)
   .IsCreatedOrUpdated()
   .InNamespace("default")
   .WithName("kubernetes")
-  .Watch(updateAPIServerCIDR);
+  .Watch(updateAPIServerCIDRFromEndpointSlice);
+
+// Watch for changes to the API server Service and update the API server CIDR
+When(a.Service)
+  .IsCreatedOrUpdated()
+  .InNamespace("default")
+  .WithName("kubernetes")
+  .Watch(updateAPIServerCIDRFromService);
 
 // Watch for changes to the UDSPackage CRD and cleanup the namespace mutations
 When(UDSPackage)
@@ -39,4 +59,10 @@ When(UDSPackage)
   // Advanced CR validation
   .Validate(validator)
   // Enqueue the package for processing
-  .Reconcile(reconciler);
+  .Reconcile(packageReconciler);
+
+//Watch for changes to the UDSExemption CRD and cleanup exemptions in policies Store
+When(UDSExemption).IsDeleted().Watch(removeExemptions);
+
+// Watch for changes to the UDSExemption CRD to enqueue an exemption for processing
+When(UDSExemption).IsCreatedOrUpdated().Validate(exemptValidator).Reconcile(exemptReconciler);
